@@ -6,7 +6,8 @@ import { dossierPrincipal } from "./constant.js";
 //Crée une fonction afficherDossier qui va afficher le nom du dossier principal en utilisant la variable dossierPrincipal
 
 function afficherDossier() {
-    console.log(dossierPrincipal.nom)
+    console.log("📁 " + dossierPrincipal.nom)
 }
 
 afficherDossier()
+
