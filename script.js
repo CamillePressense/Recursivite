@@ -18,9 +18,9 @@ function afficherFichier(fichier){
     console.log(`📑 ${fichier.nom}`);
 }
 
-function afficherDossierIteratif(){
-    afficherDossier(dossierPrincipal)
-    const contenuDossier = dossierPrincipal.contenu;
+function afficherDossierIteratif(dossier){
+    afficherDossier(dossier)
+    const contenuDossier = dossier.contenu;
     for (const element in contenuDossier){
         if (contenuDossier[element].contenu){
             afficherDossier(contenuDossier[element]);
@@ -30,8 +30,48 @@ function afficherDossierIteratif(){
     }
 }
 
+afficherDossierIteratif(dossierPrincipal)
 
-afficherDossierIteratif()
+let nombreDeNiveau = 0;
+
+function afficherDossierRecursif(dossier, profondeur) {
+    nombreDeNiveau ++
+    afficherDossier(dossier)
+    const contenuDossier = dossier.contenu;
+    for (const element in contenuDossier){
+        if (nombreDeNiveau > profondeur){
+            return
+        }
+        if (contenuDossier[element].contenu){
+            afficherDossierRecursif(contenuDossier[element]);
+        } else {
+            afficherFichier(contenuDossier[element]);
+        }     
+    }
+}
+
+//afficherDossierRecursif(dossierPrincipal, 1)
 
 
+//Etape 3 : Complète la fonction pour afficher les dossiers de troisième niveau 
+// (ex: les dossiers “Pico 8” et “Dataviz” sont des dossiers de troisième niveau car ils se trouvent dans 
+// un dossier “Projets collectifs, lui-même dans le dossier “Ada”).
 
+function afficherDossierRecursifV2(dossier){
+    if (Array.isArray(dossier)){
+        //console.log("je suis un array")
+        dossier.forEach( element => afficherDossierRecursifV2(element))
+    }
+    else if (typeof dossier === "object"){
+        //console.log("je suis un objet")
+        const clesDossier = Object.keys(dossier);
+        if(clesDossier.includes("contenu")){
+            afficherDossier(dossier);
+            const contenu =  dossier.contenu;
+            afficherDossierRecursifV2(contenu)
+        } else {afficherFichier(dossier)
+        } 
+    }
+}
+
+//afficherDossierRecursifV2(dossierPrincipal)
