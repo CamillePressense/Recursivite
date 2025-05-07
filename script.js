@@ -32,35 +32,27 @@ function afficherDossierIteratif(dossier){
 
 //afficherDossierIteratif(dossierPrincipal)
 
-let nombreDeNiveau = 0;
-
-function afficherDossierRecursif(dossier, profondeur) {
-    nombreDeNiveau ++
+function afficherDossierIteratif2(dossier){
     afficherDossier(dossier)
     const contenuDossier = dossier.contenu;
-    for (const element in contenuDossier){
-        if (nombreDeNiveau > profondeur){
-            return
-        }
-        if (contenuDossier[element].contenu){
-            afficherDossierRecursif(contenuDossier[element]);
+    for (const element of contenuDossier){   
+        if (element.contenu){
+            afficherDossier(element)
         } else {
-            afficherFichier(contenuDossier[element]);
-        }     
+            afficherFichier(element);
+        }
+        
     }
 }
-
-//afficherDossierRecursif(dossierPrincipal, 1)
-
+//afficherDossierIteratif2(dossierPrincipal)
 
 //Etape 3 : Complète la fonction pour afficher les dossiers de troisième niveau 
 // (ex: les dossiers “Pico 8” et “Dataviz” sont des dossiers de troisième niveau car ils se trouvent dans 
 // un dossier “Projets collectifs, lui-même dans le dossier “Ada”).
 
-function afficherDossierRecursifV2(dossier){
+function afficherDossierRecursif(dossier){
     if (Array.isArray(dossier)){
-        //console.log("je suis un array")
-        dossier.forEach( element => afficherDossierRecursifV2(element))
+        dossier.forEach( element => afficherDossierRecursif(element))
     }
     else if (typeof dossier === "object"){
         //console.log("je suis un objet")
@@ -68,10 +60,23 @@ function afficherDossierRecursifV2(dossier){
         if(clesDossier.includes("contenu")){
             afficherDossier(dossier);
             const contenu =  dossier.contenu;
-            afficherDossierRecursifV2(contenu)
+            afficherDossierRecursif(contenu)
         } else {afficherFichier(dossier)
         } 
     }
 }
 
-afficherDossierRecursifV2(dossierPrincipal)
+//afficherDossierRecursif(dossierPrincipal)
+
+function afficherDossierRecursif2(dossierOuFichier){
+    if (dossierOuFichier.contenu == null){
+        afficherFichier(dossierOuFichier);
+    } else {
+        afficherDossier(dossierOuFichier);
+        for (const element of dossierOuFichier.contenu){
+            afficherDossierRecursif2(element)
+        }
+    }
+}
+
+afficherDossierRecursif2(dossierPrincipal)
