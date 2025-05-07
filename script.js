@@ -30,7 +30,7 @@ function afficherDossierIteratif(dossier){
     }
 }
 
-afficherDossierIteratif(dossierPrincipal)
+//afficherDossierIteratif(dossierPrincipal)
 
 let nombreDeNiveau = 0;
 
@@ -74,4 +74,4 @@ function afficherDossierRecursifV2(dossier){
     }
 }
 
-//afficherDossierRecursifV2(dossierPrincipal)
+afficherDossierRecursifV2(dossierPrincipal)
